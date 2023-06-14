@@ -3,7 +3,6 @@ import asyncio
 import logging.config
 from pathlib import Path
 import json
-from bs4 import BeautifulSoup
 
 from symphony.bdk.core.activity.command import CommandContext
 from symphony.bdk.core.config.loader import BdkConfigLoader
@@ -48,8 +47,7 @@ class MessageListener(RealTimeEventListener):
     async def on_message_sent(self, initiator: V4Initiator, event: V4MessageSent):
         logging.debug("Message received from %s: %s",
             initiator.user.display_name, initiator.user.user_id, event.message.stream.stream_id, event.message.message_id, event.message.message, event.message.timestamp)
-        msg = BeautifulSoup(event.message.message, "html.parser").find('p').text
-        msg = {"display_name": initiator.user.display_name, "user_id": initiator.user.user_id, "conversation_id": event.message.stream.stream_id, "message_id": event.message.message_id, "timestamp": event.message.timestamp, "message": msg}
+        msg = {"display_name": initiator.user.display_name, "user_id": initiator.user.user_id, "conversation_id": event.message.stream.stream_id, "message_id": event.message.message_id, "timestamp": event.message.timestamp, "message": event.message.message}
         print(json.dumps(msg, ensure_ascii=False))
 
 
