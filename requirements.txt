@@ -1,4 +1,5 @@
 symphony-bdk-python>=2.6.1
 Jinja2~=3.0
-beautifulsoup4
-lxml
+requests
+python-dotenv
+

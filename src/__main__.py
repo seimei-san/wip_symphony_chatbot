@@ -3,6 +3,9 @@ import asyncio
 import logging.config
 from pathlib import Path
 import json
+from dotenv import load_dotenv
+import os
+import requests
 
 from symphony.bdk.core.activity.command import CommandContext
 from symphony.bdk.core.config.loader import BdkConfigLoader
@@ -18,6 +21,9 @@ from .gif_activities import GifSlashCommand, GifFormReplyActivity
 current_dir = Path(__file__).parent.parent
 logging_conf = Path.joinpath(current_dir, 'resources', 'logging.conf')
 logging.config.fileConfig(logging_conf, disable_existing_loggers=False)
+
+load_dotenv()
+wip_url = os.getenv('WIP_URL')
 
 
 async def run():
@@ -36,7 +42,7 @@ async def run():
         @activities.slash("/hello")
         async def hello(context: CommandContext):
             name = context.initiator.user.display_name
-            response = f"<messageML>Hello {name}, hope you are doing well!</messageML>"
+            response = f"<messageML>Hello {name}, hope you return render_template('index.html')are doing well!</messageML>"
             await bdk.messages().send_message(context.stream_id, response)
 
         # Start the datafeed read loop
@@ -48,7 +54,9 @@ class MessageListener(RealTimeEventListener):
         logging.debug("Message received from %s: %s",
             initiator.user.display_name, initiator.user.user_id, event.message.stream.stream_id, event.message.message_id, event.message.message, event.message.timestamp)
         msg = {"display_name": initiator.user.display_name, "user_id": initiator.user.user_id, "conversation_id": event.message.stream.stream_id, "message_id": event.message.message_id, "timestamp": event.message.timestamp, "message": event.message.message}
-        print(json.dumps(msg, ensure_ascii=False))
+        # print(json.dumps(msg, ensure_ascii=False))
+        resp = requests.post(wip_url, json=msg)
+
 
 
 # Start the main asyncio run

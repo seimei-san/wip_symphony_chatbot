@@ -10,3 +10,5 @@ env/
 bdk.log
 datafeed.id
 **/__pycache__
+
+.wip_env
