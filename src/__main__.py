@@ -3,9 +3,7 @@ import asyncio
 import logging.config
 from pathlib import Path
 import json
-from dotenv import load_dotenv
-import os
-import requests
+
 
 from symphony.bdk.core.activity.command import CommandContext
 from symphony.bdk.core.config.loader import BdkConfigLoader
@@ -17,13 +15,14 @@ from symphony.bdk.gen.agent_model.v4_message_sent import V4MessageSent
 from .activities import EchoCommandActivity, GreetUserJoinedActivity
 from .gif_activities import GifSlashCommand, GifFormReplyActivity
 
+from src import wip
+
 # Configure logging
 current_dir = Path(__file__).parent.parent
 logging_conf = Path.joinpath(current_dir, 'resources', 'logging.conf')
 logging.config.fileConfig(logging_conf, disable_existing_loggers=False)
 
-load_dotenv()
-wip_url = os.getenv('WIP_URL')
+
 
 
 async def run():
@@ -53,10 +52,7 @@ class MessageListener(RealTimeEventListener):
     async def on_message_sent(self, initiator: V4Initiator, event: V4MessageSent):
         logging.debug("Message received from %s: %s",
             initiator.user.display_name, initiator.user.user_id, event.message.stream.stream_id, event.message.message_id, event.message.message, event.message.timestamp)
-        msg = {"display_name": initiator.user.display_name, "user_id": initiator.user.user_id, "conversation_id": event.message.stream.stream_id, "message_id": event.message.message_id, "timestamp": event.message.timestamp, "message": event.message.message}
-        # print(json.dumps(msg, ensure_ascii=False))
-        resp = requests.post(wip_url, json=msg)
-
+        wip.wip_api_post(initiator.user.display_name, initiator.user.user_id, event.message.stream.stream_id, "", event.message.message_id, event.message.timestamp, event.message.message)
 
 
 # Start the main asyncio run
