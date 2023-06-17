@@ -1,20 +1,28 @@
-# Sample BDK 2.0 for Python project
-This is a sample bot project using the Symphony BDK 2.0 for Python.
-To get started, follow these commands below:
+# 課題 - APIを使ったアプリ -　（チャットボット）
 
-## First run only:
-1. Create virtual environment:
-    - `python3 -m venv env`
-2. Install dependencies:
-    - `pip3 install -r requirements.txt`
+## ①課題の内容（どんな作品）
+- MVPの部品としてAPIを使ったアプリに連携するチャットボットを作った。
+  -　Symphony社が提供するBDK（Bot Development Kit）使って基本的なチャットボットを作成。　別途作ったアプリのサーバーサイドに設けたAPIにチャットメッセージを伝送するようにした。
 
-## Subsequent runs:
-- Activate virtual environment
-    - macOS/Linux: `source env/bin/activate`
-    - Windows: `env\Scripts\activate.bat`
+## ②工夫した点・こだわった点
+- 別途作ったアプリのサーバーサイドに設けたAPIにチャットメッセージを伝送するようにした。
+  
 
-## Run project
-- `python3 -m src`
+## ③難しかった点・次回トライしたいこと(又は機能)
+- APIで解析できるように、様々なチャットのメッセージ形態を平準化するには時間が足りなかった。　今後、この機能を開発していく。
 
-## Configure custom truststore
-In order to build a custom truststore, please refer to [https://docs.developers.symphony.com/building-bots-on-symphony/configuration/truststores](https://docs.developers.symphony.com/building-bots-on-symphony/configuration/truststores).
+
+## ④質問・疑問・感想、シェアしたいtips等なんでも
+[質問]
+なし
+
+[疑問]　
+
+
+[感想]　
+  
+
+[tips]　
+  
+
+[参考記事]
